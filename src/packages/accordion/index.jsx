@@ -1,9 +1,9 @@
 import React from "react";
 import {AccordionProvider} from "./AccordionProvider";
 
-const Accordion = ({children}) => {
+export const Accordion = ({children, as}) => {
     return (
-        <AccordionProvider>
+        <AccordionProvider as={as}>
             {children}
         </AccordionProvider>
     );

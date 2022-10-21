@@ -1,7 +1,7 @@
-import {useLayoutEffect, useRef, useContext} from "react";
+import {useLayoutEffect, useRef, useContext, useMemo} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
-const AccordionHeader = ({children, icon = false}) => {
+const AccordionHeader = ({children, as = "button", className = ""}) => {
     const {hash, active, toggle, items} = useContext(AccordionItemContext);
     const ref = useRef();
 
@@ -73,17 +73,24 @@ const AccordionHeader = ({children, icon = false}) => {
 
     }, [items, toggle]);
 
+    const TagName = useMemo(() => {
+        if(["button", "div", "li", "ol"].includes(as)) {
+            return as;
+        }
+        return "button";
+    }, [as]);
+
     return (
-        <button
+        <TagName
             ref={ref}
             id={`button-${hash}`}
             type="button"
             aria-expanded="false"
-            className="w-full flex items-center justify-between text-2xl text-gray-600 border-b py-2 px-4"
+            className={className}
             aria-controls={`content-${hash}`}
         >
-            {children({open: active})}
-        </button>
+            {typeof children === "function" ? children({open: active}) : children}
+        </TagName>
     );
 };
 

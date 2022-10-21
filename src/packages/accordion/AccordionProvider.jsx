@@ -2,7 +2,7 @@ import {createContext, useMemo, useRef, useState} from "react";
 
 export const AccordionContext = createContext({});
 
-export const AccordionProvider = ({children}) => {
+export const AccordionProvider = ({children, as = "div"}) => {
     const ref = useRef();
     const [items, setItems] = useState({});
 
@@ -14,11 +14,18 @@ export const AccordionProvider = ({children}) => {
         };
     }, [items]);
 
+    const TagName = useMemo(() => {
+        if(["div", "ul"].includes(as)) {
+            return as;
+        }
+        return "div";
+    }, [as]);
+
     return (
         <AccordionContext.Provider value={value}>
-            <div ref={ref}>
+            <TagName ref={ref}>
                 {children}
-            </div>
+            </TagName>
         </AccordionContext.Provider>
     );
 };
