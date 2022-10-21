@@ -1,4 +1,4 @@
-# Nested React Accordion
+# Nested Accordion Menu
 
 #### Preview
 <p align="center">
