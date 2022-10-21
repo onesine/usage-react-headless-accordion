@@ -3,7 +3,6 @@ import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionHeader = ({children, as = "button", className = ""}) => {
     const {hash, active, toggle, items, alwaysOpen} = useContext(AccordionItemContext);
-    console.log("alwaysOpen:", alwaysOpen);
     const ref = useRef();
 
     useLayoutEffect(() => {
