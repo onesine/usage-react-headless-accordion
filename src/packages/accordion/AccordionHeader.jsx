@@ -1,11 +1,18 @@
-import {useLayoutEffect, useRef, useContext, useMemo} from "react";
+import {useRef, useContext, useMemo, useEffect} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
-const AccordionHeader = ({children, as = "button", className = ""}) => {
-    const {hash, active, toggle, items, alwaysOpen} = useContext(AccordionItemContext);
+const AccordionHeader = ({children, as = "button", className = "", href = "", onClick = null}) => {
+    const {hash, active, toggle, items, alwaysOpen, show, disabledShow} = useContext(AccordionItemContext);
     const ref = useRef();
 
-    useLayoutEffect(() => {
+    const TagName = useMemo(() => {
+        if(["button", "div", "li", "ol", "a"].includes(as)) {
+            return as;
+        }
+        return "button";
+    }, [as]);
+
+    useEffect(() => {
         if (ref && ref.current) {
             const toggleButton = (button) => {
                 let ariaExpanded = button.getAttribute('aria-expanded');
@@ -43,16 +50,24 @@ const AccordionHeader = ({children, as = "button", className = ""}) => {
                 }
             }
 
-            const showAccordion = () => {
+            const showAccordion = (e) => {
+                disabledShow();
+                disabledShow();
+
+                // Pervent default
+                if (TagName === "a") {
+                    e.preventDefault();
+                }
+
                 toggle()
 
                 if (!alwaysOpen) {
                     // Close content already open
-                    const buttons = ref.current.parentNode.querySelectorAll(":scope > button[aria-expanded='true']");
+                    const buttons = ref.current.parentNode.querySelectorAll(`:scope > ${TagName}[aria-expanded='true']`);
                     buttons.forEach(button => {
                         if (button && button !== ref.current) {
                             const id = button.id.split("-")[1];
-                            items[id].setActive(false);
+                            items[id](false);
                             toggleButton(button);
                             toggleContent(document.querySelector(`#${button.getAttribute('aria-controls')}`));
                         }
@@ -64,29 +79,46 @@ const AccordionHeader = ({children, as = "button", className = ""}) => {
 
                 // Toggle Content
                 toggleContent(document.querySelector(`#${ref.current.getAttribute('aria-controls')}`));
+
+                if (onClick) {
+                    onClick(e);
+                }
             };
 
             ref.current.addEventListener('click', showAccordion);
 
+            if (show) {
+                ref.current.setAttribute("aria-expanded", "true")
+            }
+
             return () => {
-                ref.current.removeEventListener('click', showAccordion);
+                if (ref && ref.current) {
+                    ref?.current?.removeEventListener('click', showAccordion);
+                }
             };
         }
 
-    }, [items, toggle]);
+    }, [TagName, alwaysOpen, items, onClick, show, disabledShow, toggle]);
 
-    const TagName = useMemo(() => {
-        if(["button", "div", "li", "ol"].includes(as)) {
-            return as;
-        }
-        return "button";
-    }, [as]);
+    if (TagName === "a") {
+        return (
+            <TagName
+                ref={ref}
+                id={`button-${hash}`}
+                href={href}
+                aria-expanded="false"
+                className={className}
+                aria-controls={`content-${hash}`}
+            >
+                {typeof children === "function" ? children({open: active}) : children}
+            </TagName>
+        );
+    }
 
     return (
         <TagName
             ref={ref}
             id={`button-${hash}`}
-            type="button"
             aria-expanded="false"
             className={className}
             aria-controls={`content-${hash}`}

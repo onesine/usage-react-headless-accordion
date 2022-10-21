@@ -11,8 +11,8 @@ const App = () => {
             <span className="ml-2">{children}</span>
         );
 
-        const Header = ({children}) => (
-            <AccordionHeader className="w-full flex items-center text-gray-600 border-b p-4">
+        const Header = ({children, onClick = null}) => (
+            <AccordionHeader className="w-full flex items-center text-gray-600 border-b p-4" href={"/toto"} as={"a"} onClick={onClick}>
                 {children}
             </AccordionHeader>
         );
@@ -20,7 +20,7 @@ const App = () => {
         switch (item.type) {
             case "group":
                 return (
-                    <AccordionItem key={index}>
+                    <AccordionItem key={index} isActive={"isActive" in item ? item.isActive : false}>
                         <Header>
                             {({open}) => (
                                 <>

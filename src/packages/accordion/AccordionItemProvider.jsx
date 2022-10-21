@@ -1,12 +1,23 @@
-import {createContext, useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
+import {createContext, useContext, useEffect, useMemo, useState} from "react";
 import {AccordionContext} from "./AccordionProvider";
 
-export const AccordionItemContext = createContext({});
+export const AccordionItemContext = createContext({
+    accordionRef: null,
+    active: false,
+    items: [],
+    hash: "",
+    transition: null,
+    alwaysOpen: false,
+    toggle: () => {},
+    show: false,
+    setShow: () => {}
+});
 
 
-export const AccordionItemProvider = ({children}) => {
+export const AccordionItemProvider = ({children, isActive = false}) => {
     const {accordionRef, items, setItems, transition, alwaysOpen} = useContext(AccordionContext);
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(isActive);
+    const [show, setShow] = useState(isActive);
 
     const hash = useMemo(() => {
         return Math.random().toString(36).substring(2, 9);
@@ -14,7 +25,7 @@ export const AccordionItemProvider = ({children}) => {
 
     useEffect(() => {
         if (!(hash in items)) {
-            setItems({...items, [hash]: {active, setActive}});
+            setItems({...items, [hash]: setActive});
         }
     }, [active, hash, items, setItems]);
 
@@ -26,9 +37,16 @@ export const AccordionItemProvider = ({children}) => {
             items,
             hash,
             transition,
-            alwaysOpen
+            alwaysOpen,
+            show,
+            disabledShow: () => {
+                console.log("exec")
+                setShow(false)
+            }
         }
-    }, [accordionRef, active, hash, items, transition, alwaysOpen]);
+    }, [accordionRef, active, alwaysOpen, hash, items, show, setShow, transition]);
+
+    console.log(`${hash}:`, isActive)
 
     return (
         <AccordionItemContext.Provider value={value}>

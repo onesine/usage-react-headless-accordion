@@ -1,8 +1,8 @@
-import {useContext, useMemo} from "react";
+import {useContext, useLayoutEffect, useMemo} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionBody = ({children, as}) => {
-    const {hash, transition} = useContext(AccordionItemContext);
+    const {hash, transition, show} = useContext(AccordionItemContext);
 
     const TagName = useMemo(() => {
         if(["div", "ul"].includes(as)) {
@@ -32,7 +32,7 @@ const AccordionBody = ({children, as}) => {
             aria-labelledby={`button-${hash}`}
             style={
                 {
-                    maxHeight: "0px",
+                    maxHeight: show ? "none" : "0px",
                     transitionProperty: "max-height",
                     overflow: "hidden",
                     transitionDuration: transitionData.duration,

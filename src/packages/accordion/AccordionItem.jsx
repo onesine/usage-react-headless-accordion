@@ -1,13 +1,8 @@
 import {AccordionItemProvider} from "./AccordionItemProvider";
-import {useLayoutEffect} from "react";
 
-const AccordionItem = ({children}) => {
-    useLayoutEffect(() => {
-
-    }, []);
-
+const AccordionItem = ({children, isActive = false}) => {
     return (
-        <AccordionItemProvider>
+        <AccordionItemProvider isActive={isActive}>
             {children}
         </AccordionItemProvider>
     )
