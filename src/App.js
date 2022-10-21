@@ -62,7 +62,7 @@ const App = () => {
 
     return (
         <div className="min-h-screen py-10 w-full flex items-center justify-center">
-            <a href="https://github.com/onesine/react-nested-accordion" className="absolute block inline-flex items-center space-x-3 top-10 right-16 text-xl font-semibold text-gray-700 transition duration-300 hover:text-gray-900">
+            <a href="https://github.com/onesine/react-nested-accordion" className="absolute block inline-flex items-center space-x-3 top-10 right-16 text-lg font-semibold text-gray-700 transition duration-300 hover:text-gray-900">
                 <span>GitHub</span>
                 <GitHub className="w-7 h-7"/>
             </a>

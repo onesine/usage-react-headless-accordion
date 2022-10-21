@@ -2,7 +2,8 @@ import {useLayoutEffect, useRef, useContext, useMemo} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionHeader = ({children, as = "button", className = ""}) => {
-    const {hash, active, toggle, items} = useContext(AccordionItemContext);
+    const {hash, active, toggle, items, alwaysOpen} = useContext(AccordionItemContext);
+    console.log("alwaysOpen:", alwaysOpen);
     const ref = useRef();
 
     useLayoutEffect(() => {
@@ -46,16 +47,18 @@ const AccordionHeader = ({children, as = "button", className = ""}) => {
             const showAccordion = () => {
                 toggle()
 
-                // Close content already open
-                const buttons = ref.current.parentNode.querySelectorAll(":scope > button[aria-expanded='true']");
-                buttons.forEach(button => {
-                    if (button && button !== ref.current) {
-                        const id = button.id.split("-")[1];
-                        items[id].setActive(false);
-                        toggleButton(button);
-                        toggleContent(document.querySelector(`#${button.getAttribute('aria-controls')}`));
-                    }
-                });
+                if (!alwaysOpen) {
+                    // Close content already open
+                    const buttons = ref.current.parentNode.querySelectorAll(":scope > button[aria-expanded='true']");
+                    buttons.forEach(button => {
+                        if (button && button !== ref.current) {
+                            const id = button.id.split("-")[1];
+                            items[id].setActive(false);
+                            toggleButton(button);
+                            toggleContent(document.querySelector(`#${button.getAttribute('aria-controls')}`));
+                        }
+                    });
+                }
 
                 // Toggle Button
                 toggleButton(ref.current);

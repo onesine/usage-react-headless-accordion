@@ -5,7 +5,7 @@ export const AccordionItemContext = createContext({});
 
 
 export const AccordionItemProvider = ({children}) => {
-    const {accordionRef, items, setItems} = useContext(AccordionContext);
+    const {accordionRef, items, setItems, transition, alwaysOpen} = useContext(AccordionContext);
     const [active, setActive] = useState(false);
 
     const hash = useMemo(() => {
@@ -24,9 +24,11 @@ export const AccordionItemProvider = ({children}) => {
             active,
             toggle: () => setActive(!active),
             items,
-            hash
+            hash,
+            transition,
+            alwaysOpen
         }
-    }, [accordionRef, active, hash, items]);
+    }, [accordionRef, active, hash, items, transition, alwaysOpen]);
 
     return (
         <AccordionItemContext.Provider value={value}>

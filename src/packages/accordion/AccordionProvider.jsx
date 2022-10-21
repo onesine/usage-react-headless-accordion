@@ -2,7 +2,7 @@ import {createContext, useMemo, useRef, useState} from "react";
 
 export const AccordionContext = createContext({});
 
-export const AccordionProvider = ({children, as = "div"}) => {
+export const AccordionProvider = ({children, as = "div", transition = null, alwaysOpen = false}) => {
     const ref = useRef();
     const [items, setItems] = useState({});
 
@@ -10,9 +10,11 @@ export const AccordionProvider = ({children, as = "div"}) => {
         return {
             accordionRef: ref,
             items,
-            setItems
+            setItems,
+            transition,
+            alwaysOpen
         };
-    }, [items]);
+    }, [alwaysOpen, items, transition]);
 
     const TagName = useMemo(() => {
         if(["div", "ul"].includes(as)) {
