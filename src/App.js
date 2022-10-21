@@ -2,7 +2,7 @@ import Accordion from "./packages/accordion";
 import AccordionItem from "./packages/accordion/AccordionItem";
 import AccordionHeader from "./packages/accordion/AccordionHeader";
 import AccordionBody from "./packages/accordion/AccordionBody";
-import {Chevron, CloseFolder, OpenFolder, Picture} from "./components/icons";
+import {Chevron, CloseFolder, GitHub, OpenFolder, Picture} from "./components/icons";
 import {menu} from "./constants";
 
 const App = () => {
@@ -62,6 +62,12 @@ const App = () => {
 
     return (
         <div className="min-h-screen py-10 w-full flex items-center justify-center">
+            <a href="https://github.com/onesine/react-nested-accordion" className="absolute block inline-flex items-center space-x-3 top-10 right-16 text-xl font-semibold text-gray-700 transition duration-300 hover:text-gray-900">
+                <span>GitHub</span>
+                <GitHub className="w-7 h-7"/>
+            </a>
+
+
             <div className="w-3/6 p-8">
                 <h3 className="text-4xl mb-10 font-bold text-gray-700 text-center">Nested Accordion Menu</h3>
                 <div className="bg-white shadow-lg">
