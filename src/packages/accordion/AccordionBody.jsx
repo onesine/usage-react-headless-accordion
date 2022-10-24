@@ -1,4 +1,4 @@
-import {useContext, useLayoutEffect, useMemo} from "react";
+import {useContext, useMemo} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionBody = ({children, as}) => {
