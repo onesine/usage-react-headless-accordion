@@ -1,8 +1,8 @@
-import {useRef, useContext, useMemo, useEffect} from "react";
+import {useRef, useContext, useMemo, useEffect, useCallback} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionHeader = ({children, as = "button", className = "", href = "", onClick = null}) => {
-    const {hash, active, toggle, items, alwaysOpen, show, disabledShow} = useContext(AccordionItemContext);
+    const {hash, active, toggle, items, alwaysOpen, isActive} = useContext(AccordionItemContext);
     const ref = useRef();
 
     const TagName = useMemo(() => {
@@ -13,47 +13,43 @@ const AccordionHeader = ({children, as = "button", className = "", href = "", on
     }, [as]);
 
     useEffect(() => {
-        if (ref && ref.current) {
-            const toggleButton = (button) => {
-                let ariaExpanded = button.getAttribute('aria-expanded');
-                if (ariaExpanded === "false")
-                    ariaExpanded = "true";
-                else
-                    ariaExpanded = "false";
-                button.setAttribute('aria-expanded', ariaExpanded);
-            };
+        if (isActive && ref && ref.current) {
+            toggle()
+            ref.current.setAttribute("aria-expanded", "true");
+            document.querySelector(`#${ref.current.getAttribute('aria-controls')}`).style.maxHeight = "none";
+        }
+    }, []);
 
-            const toggleContent = (content) => {
-                if (content) {
-                    if (content.style.maxHeight === "0px") {
-                        content.style.removeProperty("maxHeight");
-                        content.style.maxHeight = content.scrollHeight+"px";
-                    } else {
-                        content.style.maxHeight = content.scrollHeight+"px";
-                        content.style.fmaxHeight = content.scrollHeight+"px";
-                        content.style.maxHeight = "0px";
+    useEffect(() => {
+        const toggleButton = (button) => {
+            let ariaExpanded = button.getAttribute('aria-expanded');
+            button.setAttribute('aria-expanded', ariaExpanded === "false" ? "true" : "false");
+        }
+
+        const toggleContent = (content) => {
+            if (content) {
+                const transitionEnd = () => {
+                    if(content.style.maxHeight !== "0px") {
+                        content.style.maxHeight = "none";
                     }
 
-                    const transitionEnd = () => {
-                        if(content.style.maxHeight === "0px") {
-                            if (content.style.overflow !== "hidden") {
-                                content.style.overflow = "hidden"
-                            }
-                        } else {
-                            content.style.maxHeight = "none";
-                        }
+                    content.removeEventListener('transitionend', transitionEnd);
+                }
 
-                        content.removeEventListener('transitionend', transitionEnd);
-                    }
+                content.addEventListener('transitionend', transitionEnd);
 
-                    content.addEventListener('transitionend', transitionEnd);
+                if (content.style.maxHeight === "0px") {
+                    content.style.maxHeight = content.scrollHeight+"px";
+                } else {
+                    content.style.maxHeight = content.scrollHeight+"px";
+                    content.style.fmaxHeight = content.scrollHeight+"px";
+                    content.style.maxHeight = "0px";
                 }
             }
+        }
 
+        if (ref && ref.current) {
             const showAccordion = (e) => {
-                disabledShow();
-                disabledShow();
-
                 // Pervent default
                 if (TagName === "a") {
                     e.preventDefault();
@@ -87,10 +83,6 @@ const AccordionHeader = ({children, as = "button", className = "", href = "", on
 
             ref.current.addEventListener('click', showAccordion);
 
-            if (show) {
-                ref.current.setAttribute("aria-expanded", "true")
-            }
-
             return () => {
                 if (ref && ref.current) {
                     ref?.current?.removeEventListener('click', showAccordion);
@@ -98,7 +90,7 @@ const AccordionHeader = ({children, as = "button", className = "", href = "", on
             };
         }
 
-    }, [TagName, alwaysOpen, items, onClick, show, disabledShow, toggle]);
+    }, [TagName, alwaysOpen, items, onClick, toggle]);
 
     if (TagName === "a") {
         return (

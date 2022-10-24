@@ -9,15 +9,12 @@ export const AccordionItemContext = createContext({
     transition: null,
     alwaysOpen: false,
     toggle: () => {},
-    show: false,
-    setShow: () => {}
 });
 
 
-export const AccordionItemProvider = ({children, isActive = false}) => {
+export const AccordionItemProvider = ({children, isActive}) => {
     const {accordionRef, items, setItems, transition, alwaysOpen} = useContext(AccordionContext);
-    const [active, setActive] = useState(isActive);
-    const [show, setShow] = useState(isActive);
+    const [active, setActive] = useState(false);
 
     const hash = useMemo(() => {
         return Math.random().toString(36).substring(2, 9);
@@ -27,7 +24,7 @@ export const AccordionItemProvider = ({children, isActive = false}) => {
         if (!(hash in items)) {
             setItems({...items, [hash]: setActive});
         }
-    }, [active, hash, items, setItems]);
+    }, [items]);
 
     const value = useMemo(() => {
         return {
@@ -38,15 +35,9 @@ export const AccordionItemProvider = ({children, isActive = false}) => {
             hash,
             transition,
             alwaysOpen,
-            show,
-            disabledShow: () => {
-                console.log("exec")
-                setShow(false)
-            }
+            isActive
         }
-    }, [accordionRef, active, alwaysOpen, hash, items, show, setShow, transition]);
-
-    console.log(`${hash}:`, isActive)
+    }, [accordionRef, active, alwaysOpen, hash, isActive, items, transition]);
 
     return (
         <AccordionItemContext.Provider value={value}>

@@ -11,17 +11,13 @@ const App = () => {
             <span className="ml-2">{children}</span>
         );
 
-        const Header = ({children, onClick = null}) => (
-            <AccordionHeader className="w-full flex items-center text-gray-600 border-b p-4" href={"/toto"} as={"a"} onClick={onClick}>
-                {children}
-            </AccordionHeader>
-        );
+        const buttonClass = "w-full flex items-center text-gray-600 border-b p-4";
 
         switch (item.type) {
             case "group":
                 return (
                     <AccordionItem key={index} isActive={"isActive" in item ? item.isActive : false}>
-                        <Header>
+                        <AccordionHeader className={buttonClass} href={"/toto"} as={"a"}>
                             {({open}) => (
                                 <>
                                     <Chevron
@@ -37,7 +33,7 @@ const App = () => {
                                     <Title>{item.title}</Title>
                                 </>
                             )}
-                        </Header>
+                        </AccordionHeader>
 
                         <AccordionBody>
                             <div className="px-4">
@@ -48,12 +44,15 @@ const App = () => {
                 )
             case "image":
                 return (
-                    <AccordionItem key={index}>
-                        <Header>
-                            <Picture className="w-6 h-6"/>
-                            <Title>{item.title}</Title>
-                        </Header>
-                    </AccordionItem>
+                    <a
+                        key={index}
+                        onClick={e => {e.preventDefault()}}
+                        href={`/picture-${index}`}
+                        className={buttonClass}
+                    >
+                        <Picture className="w-6 h-6"/>
+                        <Title>{item.title}</Title>
+                    </a>
                 )
             default :
                 return null;
@@ -61,14 +60,14 @@ const App = () => {
     };
 
     return (
-        <div className="min-h-screen py-10 w-full flex items-center justify-center">
+        <div className="min-h-screen py-10 w-full flex justify-center">
             <a href="https://github.com/onesine/react-nested-accordion" className="absolute block inline-flex items-center space-x-3 top-10 right-16 text-lg font-semibold text-gray-700 transition duration-300 hover:text-gray-900">
                 <span>GitHub</span>
                 <GitHub className="w-7 h-7"/>
             </a>
 
 
-            <div className="w-3/6 p-8">
+            <div className="w-3/6 p-8 mt-16">
                 <h3 className="text-4xl mb-10 font-bold text-gray-700 text-center">Nested Accordion Menu</h3>
                 <div className="bg-white shadow-lg">
                     <Accordion>

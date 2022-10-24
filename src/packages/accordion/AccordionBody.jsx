@@ -2,7 +2,7 @@ import {useContext, useLayoutEffect, useMemo} from "react";
 import {AccordionItemContext} from "./AccordionItemProvider";
 
 const AccordionBody = ({children, as}) => {
-    const {hash, transition, show} = useContext(AccordionItemContext);
+    const {hash, transition} = useContext(AccordionItemContext);
 
     const TagName = useMemo(() => {
         if(["div", "ul"].includes(as)) {
@@ -16,6 +16,7 @@ const AccordionBody = ({children, as}) => {
             duration: "300ms",
             timingFunction: "cubic-bezier(0, 0, 0.2, 1)"
         }
+
         if (transition && ("duration" in transition) && transition.duration) {
             defaultData.duration = transition.duration;
         }
@@ -32,7 +33,7 @@ const AccordionBody = ({children, as}) => {
             aria-labelledby={`button-${hash}`}
             style={
                 {
-                    maxHeight: show ? "none" : "0px",
+                    maxHeight: "0px",
                     transitionProperty: "max-height",
                     overflow: "hidden",
                     transitionDuration: transitionData.duration,

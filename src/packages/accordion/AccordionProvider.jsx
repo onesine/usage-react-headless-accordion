@@ -3,12 +3,12 @@ import {createContext, useMemo, useRef, useState} from "react";
 export const AccordionContext = createContext({});
 
 export const AccordionProvider = ({children, as = "div", transition = null, alwaysOpen = false}) => {
-    const ref = useRef();
+    const accordionRef = useRef();
     const [items, setItems] = useState({});
 
     const value = useMemo(() => {
         return {
-            accordionRef: ref,
+            accordionRef,
             items,
             setItems,
             transition,
@@ -25,7 +25,7 @@ export const AccordionProvider = ({children, as = "div", transition = null, alwa
 
     return (
         <AccordionContext.Provider value={value}>
-            <TagName ref={ref}>
+            <TagName ref={accordionRef}>
                 {children}
             </TagName>
         </AccordionContext.Provider>
