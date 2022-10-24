@@ -16,7 +16,7 @@ const App = () => {
         switch (item.type) {
             case "group":
                 return (
-                    <AccordionItem key={index} isActive={"isActive" in item ? item.isActive : false}>
+                    <AccordionItem key={index}>
                         <AccordionHeader className={buttonClass} href={"/toto"} as={"a"}>
                             {({open}) => (
                                 <>

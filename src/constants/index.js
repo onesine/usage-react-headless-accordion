@@ -2,12 +2,10 @@ export const menu = [
     {
         type: "group",
         title: "Group 1",
-        isActive: true,
         submenu: [
             {
                 type: "group",
                 title: "Sub Group 1",
-                isActive: true,
                 submenu: [
                     {
                         type: "image",
