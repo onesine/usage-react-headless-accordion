@@ -9,11 +9,11 @@ export const menu = [
                 submenu: [
                     {
                         type: "image",
-                        title: "Picture_1.png"
+                        title: "picture_1.png"
                     },
                     {
                         type: "image",
-                        title: "Picture_2.png"
+                        title: "picture_2.png"
                     }
                 ]
             },
@@ -23,11 +23,11 @@ export const menu = [
                 submenu: [
                     {
                         type: "video",
-                        title: "Video_1.mp4"
+                        title: "video_1.mp4"
                     },
                     {
                         type: "video",
-                        title: "Video_2.mp4"
+                        title: "video_2.mp4"
                     }
                 ]
             },
@@ -37,11 +37,11 @@ export const menu = [
                 submenu: [
                     {
                         type: "music",
-                        title: "Music_1.mp3"
+                        title: "music_1.mp3"
                     },
                     {
                         type: "music",
-                        title: "Music_mp3"
+                        title: "music_mp3"
                     }
                 ]
             },
