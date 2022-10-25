@@ -1,105 +1,131 @@
 export const menu = [
     {
-        type: "group",
-        title: "Group 1",
+        type: "folder",
+        title: "Documents",
         submenu: [
             {
-                type: "group",
-                title: "Sub Group 1",
+                type: "folder",
+                title: "Pictures",
                 submenu: [
                     {
                         type: "image",
-                        title: "Picture 1"
+                        title: "Picture_1.png"
                     },
                     {
                         type: "image",
-                        title: "Picture 2"
-                    },
-                    {
-                        type: "image",
-                        title: "Picture 3"
-                    },
+                        title: "Picture_2.png"
+                    }
                 ]
             },
             {
-                type: "group",
-                title: "Sub Group 2",
+                type: "folder",
+                title: "Videos",
                 submenu: [
                     {
-                        type: "group",
-                        title: "Sub Group Level 3",
+                        type: "video",
+                        title: "Video_1.mp4"
+                    },
+                    {
+                        type: "video",
+                        title: "Video_2.mp4"
+                    }
+                ]
+            },
+            {
+                type: "folder",
+                title: "Musics",
+                submenu: [
+                    {
+                        type: "music",
+                        title: "Music_1.mp3"
+                    },
+                    {
+                        type: "music",
+                        title: "Music_mp3"
+                    }
+                ]
+            },
+            {
+                type: "folder",
+                title: "Downloads",
+                submenu: [
+                    {
+                        type: "folder",
+                        title: "Jujutsu Kaisen",
                         submenu: [
                             {
-                                type: "image",
-                                title: "image"
+                                type: "video",
+                                title: "episode-1.mp4"
                             },
                             {
-                                type: "image",
-                                title: "image"
+                                type: "video",
+                                title: "episode-2.mp4"
                             },
                         ]
                     },
                     {
-                        type: "image",
-                        title: "image"
+                        type: "archive",
+                        title: "android-studio-2021.3.1.17-linux.tar.gz"
                     },
                 ]
             },
         ]
     },
     {
-        type: "group",
-        title: "Group 2",
+        type: "folder",
+        title: "Desktop",
         submenu: [
             {
                 type: "image",
-                title: "Picture 1"
+                title: "Screen_Shot_2022_10_21_at_12.12.47.png"
             },
             {
-                type: "image",
-                title: "Picture 2"
+                type: "video",
+                title: "One_piece_episode_1037.mp4"
             },
         ]
     },
     {
-        type: "group",
-        title: "Group 3",
+        type: "folder",
+        title: "Workspace",
         submenu: [
             {
-                type: "image",
-                title: "Picture 1"
+                type: "folder",
+                title: "Lab react",
+                submenu: []
             },
             {
-                type: "image",
-                title: "Picture 2"
+                type: "folder",
+                title: "Lab Laravel",
+                submenu: []
             },
         ]
     },
     {
-        type: "group",
-        title: "Group 4",
+        type: "folder",
+        title: "Public",
         submenu: [
             {
-                type: "group",
-                title: "Sub Group 3",
+                type: "folder",
+                title: "week",
                 submenu: [
                     {
                         type: "image",
-                        title: "Picture 1"
+                        title: "picture.jpg"
                     },
                     {
-                        type: "image",
-                        title: "Picture 2"
+                        type: "music",
+                        title: "song.mp3"
                     },
                 ]
             },
             {
-                type: "image",
-                title: "Picture 1"
+                type: "video",
+                title: "video.mp4"
             },
             {
                 type: "image",
-                title: "Picture 2"
+                title: "picture.gif"
             },
         ]
     }
