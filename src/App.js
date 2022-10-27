@@ -1,9 +1,6 @@
-import Accordion from "./packages/accordion";
-import AccordionItem from "./packages/accordion/AccordionItem";
-import AccordionHeader from "./packages/accordion/AccordionHeader";
-import AccordionBody from "./packages/accordion/AccordionBody";
 import {Archive, Chevron, CloseFolder, GitHub, Music, OpenFolder, Picture, Video} from "./components/icons";
 import {menu} from "./constants";
+import {Accordion, AccordionBody, AccordionHeader, AccordionItem} from "react-headless-accordion";
 
 const App = () => {
     const printItem = (item, index) => {
@@ -28,7 +25,7 @@ const App = () => {
             case "folder":
                 return (
                     <AccordionItem key={index}>
-                        <AccordionHeader className={buttonClass} href={"/toto"} as={"a"}>
+                        <AccordionHeader className={buttonClass}>
                             {({open}) => (
                                 <>
                                     <Chevron
@@ -88,7 +85,6 @@ const App = () => {
                 <span className="text-md md:text-lg">GitHub</span>
                 <GitHub className="w-5 md:w-7 h-5 md:h-7"/>
             </a>
-
 
             <div className="w-full md:w-4/6 lg:w-3/6 p-4 mt-8 md:mt-16">
                 <h3 className="text-xl md:text-2xl lg:text-4xl mb-6 md:mb-10 font-bold text-gray-700 text-center">Nested Accordion Menu</h3>

@@ -2,10 +2,12 @@ export const menu = [
     {
         type: "folder",
         title: "Documents",
+        isActive: true,
         submenu: [
             {
                 type: "folder",
                 title: "Pictures",
+                isActive: true,
                 submenu: [
                     {
                         type: "image",
