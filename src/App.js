@@ -8,26 +8,28 @@ const App = () => {
             <span className="ml-2">{children}</span>
         );
 
-        const buttonClass = "w-full flex items-center text-gray-600 border-b p-4";
+        const buttonClass = "w-full flex items-center text-gray-600 border-b py-4 pl-4";
 
         const FileTemplate = ({children, index, title}) => (
-            <a
-                onClick={e => {e.preventDefault()}}
-                href={`/picture-${index}`}
-                className={buttonClass}
-            >
-                {children}
-                <Title>{title}</Title>
-            </a>
+            <div className="pl-8">
+                <a
+                    onClick={e => {e.preventDefault()}}
+                    href={`/picture-${index}`}
+                    className={buttonClass}
+                >
+                    {children}
+                    <Title>{title}</Title>
+                </a>
+            </div>
         );
 
         switch (item.type) {
             case "folder":
                 return (
                     <AccordionItem key={index}>
-                        <AccordionHeader className={buttonClass}>
-                            {({open}) => (
-                                <>
+                        {({open}) => (
+                            <>
+                                <AccordionHeader className={buttonClass}>
                                     <Chevron
                                         className={`w-7 h-7 transform transition duration-300 ${!open ? '' : ' rotate-90'}`}
                                     />
@@ -39,17 +41,17 @@ const App = () => {
                                     )}
 
                                     <Title>{item.title}</Title>
-                                </>
-                            )}
-                        </AccordionHeader>
+                                </AccordionHeader>
 
-                        <AccordionBody>
-                            <div className="px-4">
-                                {item.submenu.map(printItem)}
-                            </div>
-                        </AccordionBody>
+                                <AccordionBody>
+                                    <div className="pl-8">
+                                        {item.submenu.map(printItem)}
+                                    </div>
+                                </AccordionBody>
+                            </>
+                        )}
                     </AccordionItem>
-                )
+                );
             case "image":
                 return (
                     <FileTemplate title={item.title} key={index} index={index}>
@@ -89,7 +91,7 @@ const App = () => {
             <div className="w-full md:w-4/6 lg:w-3/6 p-4 mt-8 md:mt-16">
                 <h3 className="text-xl md:text-2xl lg:text-4xl mb-6 md:mb-10 font-bold text-gray-700 text-center">Nested Accordion Menu</h3>
                 <div className="bg-white shadow-lg">
-                    <Accordion>
+                    <Accordion as={"ul"} className="bg-gray-100">
                         {menu.map(printItem)}
                     </Accordion>
                 </div>
