@@ -1,4 +1,4 @@
-# Nested Accordion Menu
+# Usage React headless accordion
 
 #### Preview
 <p align="center">
