@@ -12,7 +12,7 @@ const App = () => {
                 <GitHub className="w-5 md:w-7 h-5 md:h-7"/>
             </a>
 
-            <div className="flex flex-col lg:flex-row items-center">
+            <div className="flex flex-col lg:flex-row">
                 <div className="flex justify-center lg:justify-end lg:w-1/2">
                     <div className="md:w-4/6">
                         <div className="w-full p-4">
